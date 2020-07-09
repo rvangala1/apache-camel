@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: dev
+camel:
+  springboot:
+    shutdownTimeout: 1
+    health.indicator.enabled: true
+management.security.enabled: false
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/LocalDB
+    username: postgres
+    password: Praju@35
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto : update
+
+camel:
+  component:
+    servlet:
+      mapping:
+        context-path: /*
+
+dbNode: jdbc:dataSource
+selectNode: sql:select * from BOOK where isbn = :#isbn?dataSource=#dataSource
+---
